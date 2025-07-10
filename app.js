@@ -1,4 +1,3 @@
-
 const canvas = document.getElementById("chart");
 const ctx = canvas.getContext("2d");
 const width = canvas.width;
@@ -101,22 +100,23 @@ function checkCrossovers(candles, ema10Array, ema50Array) {
     const prevDiff = ema10Array[i - 1] - ema50Array[i - 1];
     const currDiff = ema10Array[i] - ema50Array[i];
 
-    const x = i * (candleWidth + candleGap) + candleWidth/2;
+    const x = i * (candleWidth + candleGap) + candleWidth / 2;
     const y = height - (candles[i].close - minPrice) * scaleY;
 
-    if (prevDiff <= 0 && currDiff > 0) {
+    if (prevDiff < 0 && currDiff >= 0) {
       ctx.fillStyle = 'lime';
       ctx.beginPath();
-      ctx.arc(x, y - 10, 4, 0, 2 * Math.PI);
+      ctx.arc(x, y - 10, 5, 0, 2 * Math.PI);
       ctx.fill();
     }
-    if (prevDiff >= 0 && currDiff < 0) {
+    if (prevDiff > 0 && currDiff <= 0) {
       ctx.fillStyle = 'red';
       ctx.beginPath();
-      ctx.arc(x, y + 10, 4, 0, 2 * Math.PI);
+      ctx.arc(x, y + 10, 5, 0, 2 * Math.PI);
       ctx.fill();
     }
   }
 }
 
 fetchData();
+
